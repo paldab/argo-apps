@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: gospel-united
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Edens-Angel/argo-apps.git
+    path: gospel_united/clip-chooser
+    helm:
+      passCredentials: false
+      valueFiles:
+        - values.yaml
+  destination:
+    name: in-cluster
+    namespace: gospel-united
+  syncPolicy:
+    syncOptions:
+      - createNamespace=true
+      - pruneLast=true

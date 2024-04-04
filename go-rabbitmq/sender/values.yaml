@@ -2,14 +2,6 @@ name: rabbitmq-sender
 replicas: 1
 image: paer12/go-rabbitmq-sender
 
-resources:
-  requests:
-    cpu: 0m
-    memory: 100Mi
-  limits:
-    cpu: 500m
-    memory: 1Gi
-
 service:
   type: ClusterIP
   externalPort: 8080

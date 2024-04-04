@@ -3,6 +3,9 @@ replicas: 1
 image: paer12/go-rabbitmq-consumer
 
 resources:
+  requests:
+    cpu: 0m
+    memory: 100Mi
   limits:
     cpu: 500m
     memory: 1Gi

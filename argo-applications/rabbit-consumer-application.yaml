@@ -4,18 +4,20 @@ metadata:
   name: rabbit-consumer
   namespace: argocd
 spec:
+  destination:
+    namespace: rabbit-project
+    server: https://kubernetes.default.svc
   project: default
   source:
+    directory:
+      jsonnet:
+        tlas:
+        - name: ""
+          value: ""
+    path: go-rabbitmq/consumer
     repoURL: https://github.com/Edens-Angel/argo-apps.git
-    chart: clip-chooser
     targetRevision: HEAD
-    helm:
-      passCredentials: false
-      valueFiles:
-        - values.yaml
-  destination:
-    name: in-cluster
-    namespace: rabbit-project
   syncPolicy:
     syncOptions:
-      - pruneLast=true
+    - CreateNamespace=true
+    - PruneLast=true

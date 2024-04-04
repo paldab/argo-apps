@@ -4,20 +4,20 @@ metadata:
   name: rabbit-sender
   namespace: argocd
 spec:
+  destination:
+    namespace: rabbit-project
+    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/Edens-Angel/argo-apps.git
-    chart: rabbit-sender
+    directory:
+      jsonnet:
+        tlas:
+        - name: ""
+          value: ""
     path: go-rabbitmq/sender
-    targetRevision: 0.1.0
-    helm:
-      passCredentials: false
-      valueFiles:
-        - values.yaml
-  destination:
-    name: in-cluster
-    namespace: rabbit-project
+    repoURL: https://github.com/Edens-Angel/argo-apps.git
+    targetRevision: HEAD
   syncPolicy:
     syncOptions:
-      - pruneLast=true
-      - createNamespace=true
+    - CreateNamespace=true
+    - PruneLast=true

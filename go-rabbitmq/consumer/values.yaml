@@ -1,0 +1,15 @@
+name: rabbitmq-consumer
+replicas: 1
+image: paer12/go-rabbitmq-consumer
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+service:
+  type: ClusterIP
+  externalPort: 8080
+  internalPort: 8080
+
+containerPort: 8080

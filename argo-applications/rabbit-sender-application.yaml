@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
-  namespace: gospel-united
+  name: rabbit-sender
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Edens-Angel/argo-apps.git
-    chart: clip-chooser
-    targetRevision: HEAD
+    chart: rabbit-sender
+    path: go-rabbitmq/sender
+    targetRevision: 0.1.0
     helm:
       passCredentials: false
       valueFiles:
         - values.yaml
   destination:
     name: in-cluster
-    namespace: gospel-united
+    namespace: rabbit-project
   syncPolicy:
     syncOptions:
       - pruneLast=true
+      - createNamespace=true

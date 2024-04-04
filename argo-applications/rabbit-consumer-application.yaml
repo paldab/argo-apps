@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
-  namespace: gospel-united
+  name: rabbit-consumer
+  namespace: argocd
 spec:
   project: default
   source:
@@ -15,7 +15,7 @@ spec:
         - values.yaml
   destination:
     name: in-cluster
-    namespace: gospel-united
+    namespace: rabbit-project
   syncPolicy:
     syncOptions:
       - pruneLast=true

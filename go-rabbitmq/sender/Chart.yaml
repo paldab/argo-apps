@@ -8,4 +8,4 @@ appVersion: "1.0.0"
 dependencies:
   - name: go-service-base
     version: 0.1.0
-    repository: "file://../base/go-service-base"
+    repository: "file://../../base/go-service-base"

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rabbit-consumer
+  name: rabbit-go-consumer
   namespace: argocd
 spec:
   destination:
@@ -9,13 +9,11 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    directory:
-      jsonnet:
-        tlas:
-        - name: ""
-          value: ""
+    helm:
+      valueFiles:
+        - values.yaml
     path: go-rabbitmq/consumer
-    repoURL: https://github.com/Edens-Angel/argo-apps.git
+    repoURL: https://github.com/Edens-Angel/argo-apps
     targetRevision: HEAD
   syncPolicy:
     syncOptions:

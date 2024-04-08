@@ -17,21 +17,17 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.image }}
+        {{- if .Values.envs }}
         env:
-          - name: RABBIT_HOST
+          {{- range .Values.envs }}
+          - name: {{ .variable }}
             valueFrom:
+              {{- if .secret }}
               secretKeyRef:
-                name: rabbit-credentials
-                key: host
-          - name: RABBIT_USER
-            valueFrom:
-              secretKeyRef:
-                name: rabbit-credentials
-                key: user
-          - name: RABBIT_PASS
-            valueFrom:
-              secretKeyRef:
-                name: rabbit-credentials
-                key: password
+                name: {{ .secret }}
+                key: {{ .key }}
+              {{- end }}
+          {{- end }}
+        {{- end }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.containerPort }}

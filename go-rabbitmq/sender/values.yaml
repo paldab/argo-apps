@@ -6,3 +6,14 @@ service:
   type: ClusterIP
   externalPort: 8080
   internalPort: 8080
+
+envs:
+  - variable: RABBIT_HOST
+    secret: rabbit-credentials
+    key: host
+  - variable: RABBIT_USER
+    secret: rabbit-credentials
+    key: user
+  - variable: RABBIT_PASS
+    secret: rabbit-credentials
+    key: password

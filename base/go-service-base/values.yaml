@@ -1,5 +1,5 @@
 # Base properties
-name: "go-app1"
+name: ""
 image: ""
 replicas: 1
 containerPort: 8080

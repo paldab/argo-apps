@@ -1,4 +1,4 @@
-name: rabbitmq-sender
+name: rabbitmq-go-sender
 replicas: 1
 image: paer12/go-rabbitmq-sender
 
@@ -6,5 +6,3 @@ service:
   type: ClusterIP
   externalPort: 8080
   internalPort: 8080
-
-containerPort: 8080

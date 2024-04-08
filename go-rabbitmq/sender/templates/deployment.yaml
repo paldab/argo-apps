@@ -17,28 +17,21 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.image }}
-        resources:
-          requests:
-            cpu: 1m
-            memory: 10Mi
-          limits:
-            cpu: 1
-            memory: 1Gi
-          - env:
-            - name: RABBIT_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbit-credentials
-                  key: host
-            - name: RABBIT_USER
-              valueFrom:
-                secretKeyRef:
-                  name: rabbit-credentials
-                  key: user
-            - name: RABBIT_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: rabbit-credentials
-                  key: password
+        env:
+          - name: RABBIT_HOST
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-credentials
+                key: host
+          - name: RABBIT_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-credentials
+                key: user
+          - name: RABBIT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-credentials
+                key: password
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: 8080

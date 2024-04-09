@@ -12,6 +12,9 @@ spec:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
     targetRevision: {{ .Values.certManager.source.targetRevision }}
+    helm:
+      values: |
+        installCRDs: true
   destination:
     namespace: cert-manager
     server: {{ .Values.cluster.destination.server }}

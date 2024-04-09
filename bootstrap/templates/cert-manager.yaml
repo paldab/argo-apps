@@ -1,0 +1,18 @@
+{{ - if .Values.cert-manager.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.config.project }}
+  source:
+    chart: cert-manager
+    repoURL: https://charts.jetstack.io
+    targetRevision: {{ .Values.cert-manager.source.targetRevision }}
+  destination:
+    namespace: cert-manager
+    server: {{ .Values.cluster.destination.server }}
+{{ -end }}

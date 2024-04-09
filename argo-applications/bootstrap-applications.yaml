@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
-  namespace: gospel-united
+  name: bootstrap
+  namespace: argocd
 spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
   project: default
   source:
     helm:
       valueFiles:
         - values.yaml
-    path: gospel-united/clip-chooser
+    path: bootstrap
     repoURL: https://github.com/Edens-Angel/argo-apps
     targetRevision: HEAD
-  destination:
-    namespace: gospel-united
-    server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
-      - pruneLast=true
+    - PruneLast=true

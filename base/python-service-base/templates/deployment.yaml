@@ -4,6 +4,7 @@ metadata:
   name: {{ .Values.name }}
   labels:
     app: {{ .Values.name }}
+  annotations:
 spec:
   replicas: {{ .Values.replicas }}
   selector:
@@ -17,12 +18,17 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.image }}
-        resources:
-          requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
-          limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
+        {{- if .Values.envs }}
+        env:
+          {{- range .Values.envs }}
+          - name: {{ .variable }}
+            valueFrom:
+              {{- if .secret }}
+              secretKeyRef:
+                name: {{ .secret }}
+                key: {{ .key }}
+              {{- end }}
+          {{- end }}
+        {{- end }}
         ports:
         - containerPort: {{ .Values.containerPort }}

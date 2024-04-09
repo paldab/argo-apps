@@ -1,0 +1,4 @@
+python-service-base:
+  name: clip-chooser
+  replicas: 1
+  image: paer12/instagram-clip-selector:master

@@ -4,9 +4,6 @@ metadata:
   name: rabbit-go-consumer
   namespace: argocd
 spec:
-  destination:
-    namespace: rabbit-project
-    server: https://kubernetes.default.svc
   project: default
   source:
     helm:
@@ -15,6 +12,9 @@ spec:
     path: go-rabbitmq/consumer
     repoURL: https://github.com/Edens-Angel/argo-apps
     targetRevision: HEAD
+  destination:
+    namespace: rabbit-project
+    server: https://kubernetes.default.svc
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

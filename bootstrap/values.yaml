@@ -10,12 +10,12 @@ nginx:
   source:
     targetRevision: 1.14.0
 
-external-secrets:
+externalSecrets:
   enabled: true
   source:
     targetRevision: 0.9.14
 
-cert-manager:
+certManager:
   enabled: true
   source:
     targetRevision: 1.14.4

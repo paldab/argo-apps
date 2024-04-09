@@ -1,4 +1,4 @@
-{{- if .Values.cert-manager.enabled }}
+{{- if .Values.certManager.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -11,7 +11,7 @@ spec:
   source:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
-    targetRevision: {{ .Values.cert-manager.source.targetRevision }}
+    targetRevision: {{ .Values.certManager.source.targetRevision }}
   destination:
     namespace: cert-manager
     server: {{ .Values.cluster.destination.server }}

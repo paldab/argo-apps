@@ -10,10 +10,8 @@ spec:
     - git:
         repoURL: https://github.com/Edens-Angel/argo-apps
         revision: HEAD
-        directories:
+        files:
           - path: argo-applications/*
-          - path: argo-applications/bootstrap/*
-            exclude: true
   template:
     metadata:
       name: '{{.path.basename}}' 

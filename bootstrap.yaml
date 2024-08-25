@@ -8,23 +8,26 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-        repoURL: https://github.com/Edens-Angel/argo-apps
+        repoURL: https://github.com/Edens-Angel/argo-apps.git
         revision: HEAD
-        directories:
-          - path: argo-applications/bootstrap/
+        files:
+        - path: argo-applications/bootstrap/*
   template:
     metadata:
       name: '{{.path.basename}}' 
     spec:
       project: default
       source:
-        repoURL: https://github.com/Edens-Angel/argo-apps
+        repoURL: https://github.com/Edens-Angel/argo-apps.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
         namespace: argocd
         server: https://kubernetes.default.svc
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - pruneLast=true
           - CreateNamespace=true

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clip-chooser
+  namespace: { { .Values.namespace } }
+spec:
+  replicas: { { .Values.clip-chooser.replicas } }
+  selector:
+    matchLabels:
+      app: clip-chooser
+  template:
+    metadata:
+      labels:
+        app: clip-chooser
+    spec:
+      containers:
+        - name: clip-chooser
+          image: { { .Values.clip-chooser.image } }
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          envFrom:
+            configMapRef:
+              name: env-configmap
+          env:
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clip-chooser
+  namespace: { { .Values.namespace } }
+spec:
+  selector:
+    app: clip-chooser
+  ports:
+    - port: 8080
+      targetPort: 8080

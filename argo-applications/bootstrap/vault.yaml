@@ -1,36 +1,8 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: consul
-#   namespace: argocd
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: default
-#   source:
-#     chart: consul
-#     repoURL: https://helm.releases.hashicorp.com
-#     targetRevision: "1.5.1"
-#   destination:
-#     namespace: consul
-#     server: https://kubernetes.default.svc
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - PruneLast=true
-# ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: vault
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -41,24 +13,20 @@ spec:
     targetRevision: "0.28.1"
     helm:
       values: |
-        affinity: ""
-        ha:
-          enabled: true
-          raft:
+        server:
+          dataStorage:
             enabled: true
-            setNodeId: true
-            config: |
-                cluster_name = "vault-integrated-storage"
-                storage "raft" {
-                  path    = "/vault/data/"
-                }
-
-                listener "tcp" {
-                  address = "[::]:8200"
-                  cluster_address = "[::]:8201"
-                  tls_disable = "true"
-                }
-                service_registration "kubernetes" {}
+            size: 1Gi
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              nginx.ingress.kubernetes.io/ssl-redirect: "false"
+            hosts:
+              - host: vault.minikube.local
+                paths: ["/"]
+        injector:
+          enabled: true
   destination:
     namespace: vault
     server: https://kubernetes.default.svc

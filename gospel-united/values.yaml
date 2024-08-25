@@ -1,0 +1,39 @@
+namespace: gospel-united
+
+dropbox:
+  secretName: dropbox-credentials
+  accessTokenKey: accessToken
+
+instagram:
+  secret: instagram-credentials
+  usernameKey: username
+  passwordKey: password
+
+video-api:
+  replicas: 1
+  image: paer12/instagram-video-api:master
+
+insta-uploader:
+  replicas: 1
+  image: paer12/instagram-poster:master
+
+clip-chooser:
+  replicas: 1
+  image: paer12/instagram-clip-selector:master
+
+mysql:
+  enabled: true
+  auth:
+    database: gospelUnited
+    username: gospel
+    password: gospelPass
+    rootPassword: gospelPass
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+  secondary:
+    persistence:
+      enabled: true
+      size: 8Gi
+

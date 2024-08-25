@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: app
+  name: bootstrap-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,7 +11,7 @@ spec:
         repoURL: https://github.com/Edens-Angel/argo-apps.git
         revision: HEAD
         files:
-        - path: argo-applications/bootstrap/*
+        - path: argo-applications/bootstrap/*.yaml
   template:
     metadata:
       name: '{{.path.basename}}' 

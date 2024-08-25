@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/Edens-Angel/argo-apps
+        revision: HEAD
+        directories:
+          - path: argo-applications/bootstrap/
+  template:
+    metadata:
+      name: '{{.path.basename}}' 
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Edens-Angel/argo-apps
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        syncOptions:
+          - pruneLast=true
+          - CreateNamespace=true

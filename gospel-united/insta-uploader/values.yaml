@@ -1,4 +1,0 @@
-python-service-base:
-  name: insta-uploader
-  replicas: 1
-  image: paer12/instagram-poster:master

@@ -12,10 +12,10 @@ dependencies:
     condition: mysql.enabled
   - name: video-api
     version: 0.1.0
-    repository: "file://../../base/python-service-base"
+    repository: "file://../base/python-service-base"
   - name: insta-uploader
     version: 0.1.0
-    repository: "file://../../base/python-service-base"
+    repository: "file://../base/python-service-base"
   - name: clip-chooser
     version: 0.1.0
-    repository: "file://../../base/python-service-base"
+    repository: "file://../base/python-service-base"

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Edens-Angel/argo-apps
+    repoURL: https://github.com/Edens-Angel/argo-apps.git
     chart: gospel-united
     targetRevision: 0.1.0
     path: gospel-united

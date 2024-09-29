@@ -1,0 +1,43 @@
+namespace: gospel
+
+app:
+  image: paer12/gospel-clip-generator:0.1.0
+
+groqAI:
+  secretName: groq-credentials
+  key: apiKey
+
+instagram:
+  secretName: instagram-credentials
+  usernameKey: username
+  passwordKey: password
+
+mysql:
+  enabled: true
+  auth:
+    database: gospel
+    username: gospel
+    password: gospelPass
+    rootPassword: gospelPass
+  primary:
+    persistence:
+      enabled: true
+      size: 4Gi
+  secondary:
+    persistence:
+      enabled: true
+      size: 4Gi
+
+externalDatabase:
+  enabled: false
+  host: ""
+  username: ""
+  password: ""
+  database: ""
+
+redis:
+  enabled: true
+  host: redis-master
+  port: 6379
+  replica:
+    replicaCount: 2

@@ -1,0 +1,61 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: myjob
+  namespace: {{ include "gospel.namespace" .}}
+spec:
+  schedule: "0 12 * * *" # once a day at 12:00PM (noon)
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            {{ if .Values.mysql.enabled}}
+              {{ include "gospel.waitForMysql" . | nindent 12}}
+            {{- end }}
+            {{ if .Values.redis.enabled }}
+              {{ include "gospel.waitForRedis" . | nindent 12}}
+            {{- end }}
+          containers:
+          - name: gospel-clip-generator
+            image: {{ .Values.app.image }}
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 1000Mi
+              limits:
+                cpu: "1500m"
+                memory: 1500Mi
+            env:
+            - name: GROQ_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.groqAI.secretName }}
+                  key: {{ .Values.groqAI.key }}
+            - name: INSTAGRAM_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.instagram.secretName }}
+                  key: {{ .Values.instagram.usernameKey }}
+            - name: INSTAGRAM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.instagram.secretName }}
+                  key: {{ .Values.instagram.passwordKey }}
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gospel-db-credentials
+                  key: jdbc-url
+              {{ if .Values.redis.enabled }}
+            - name: REDIS_HOST
+              value: {{ include "gospel.redisHost" . }}
+            - name: REDIS_PORT
+              value: {{ quote .Values.redis.port }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ printf "%s-%s" (include "gospel.name" .) "redis"}}
+                  key: redis-password
+             {{- end }}
+          restartPolicy: OnFailure

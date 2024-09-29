@@ -1,0 +1,16 @@
+apiVersion: v2
+name: gospel-clip-generator
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+dependencies:
+  - name: mysql
+    version: 11.1.15
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: mysql.enabled
+  - name: redis
+    version: 20.0.5
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled

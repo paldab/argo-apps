@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Edens-Angel/argo-apps.git
+    repoURL: https://github.com/paldab/argo-apps.git
     chart: gospel-clip-generator
     targetRevision: 0.1.0
     path: gospel-clip-generator

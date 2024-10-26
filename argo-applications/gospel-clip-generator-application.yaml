@@ -7,8 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/paldab/argo-apps.git
-    chart: gospel-clip-generator
-    targetRevision: 0.1.0
+    targetRevision: HEAD
     path: gospel-clip-generator
     helm:
       valueFiles:
